@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Question Practice | ExamIgnite</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@300;400;500;600;700;800&amp;family=Manrope:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-container": "#945d00",
+                        "secondary": "#1d4ed8",
+                        "primary-fixed": "#9cf2e8",
+                        "surface-container-highest": "#dce2f7",
+                        "surface-tint": "#006a63",
+                        "tertiary-fixed": "#ffddb8",
+                        "on-surface-variant": "#3e4947",
+                        "primary-container": "#0f766e",
+                        "surface-container-high": "#e1e8fd",
+                        "outline-variant": "#bdc9c6",
+                        "on-tertiary": "#ffffff",
+                        "on-tertiary-fixed": "#2a1700",
+                        "primary": "#005c55",
+                        "surface-container": "#e9edff",
+                        "on-primary-fixed": "#00201d",
+                        "on-primary-fixed-variant": "#00504a",
+                        "on-secondary-fixed": "#001551",
+                        "surface-dim": "#d3daef",
+                        "secondary-fixed": "#dce1ff",
+                        "inverse-on-surface": "#edf0ff",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "error-container": "#ffdad6",
+                        "outline": "#6e7977",
+                        "on-secondary-container": "#fffbff",
+                        "on-error": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "secondary-container": "#4069f2",
+                        "on-primary": "#ffffff",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "inverse-primary": "#80d5cb",
+                        "on-secondary-fixed-variant": "#0039b5",
+                        "error": "#ba1a1a",
+                        "surface-variant": "#dce2f7",
+                        "surface": "#f9f9ff",
+                        "background": "#f9f9ff",
+                        "on-error-container": "#93000a",
+                        "on-primary-container": "#a3faef",
+                        "surface-bright": "#f9f9ff",
+                        "primary-fixed-dim": "#80d5cb",
+                        "on-surface": "#141b2b",
+                        "tertiary": "#734700",
+                        "on-background": "#141b2b",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-surface": "#293040",
+                        "surface-container-low": "#f1f3ff",
+                        "secondary-fixed-dim": "#b7c4ff",
+                        "on-tertiary-container": "#ffe6cc"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Epilogue"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Manrope', sans-serif; }
+        h1, h2, h3, h4 { font-family: 'Epilogue', sans-serif; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface min-h-screen flex flex-col">
+<!-- TopAppBar - Shared Component -->
+<header class="bg-[#F9F9FF] dark:bg-slate-950 sticky top-0 z-50">
+<div class="flex justify-between items-center w-full px-6 py-4 max-w-7xl mx-auto">
+<div class="flex items-center gap-4">
+<button class="hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors p-2 rounded-full active:scale-95 duration-150">
+<span class="material-symbols-outlined text-teal-700 dark:text-teal-400">menu</span>
+</button>
+<h1 class="text-xl font-bold tracking-tighter text-teal-700 dark:text-teal-400">ExamIgnite</h1>
+</div>
+<div class="hidden md:flex items-center gap-8">
+<nav class="flex gap-6">
+<a class="text-slate-500 dark:text-slate-400 font-medium hover:text-teal-700 transition-colors" href="#">Home</a>
+<a class="text-teal-700 dark:text-teal-400 font-bold" href="#">Practice</a>
+<a class="text-slate-500 dark:text-slate-400 font-medium hover:text-teal-700 transition-colors" href="#">Insights</a>
+</nav>
+</div>
+<div class="flex items-center gap-3">
+<div class="hidden sm:block text-right mr-2">
+<p class="text-xs font-bold text-on-surface">Rahul Sharma</p>
+<p class="text-[10px] text-slate-500">8th Sem | CSE</p>
+</div>
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center overflow-hidden border-2 border-primary-container/20">
+<img alt="Student Profile" data-alt="close-up portrait of a young male student with a thoughtful expression in a bright academic setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBhZPxwAo5ziFwAjPPhSDLkAdJgoUBi_QnP-vV5V2vxwKLSsk2DxtQ7hi_vPwi9Z8XZT3V1RpnxtcQxbgPcVYYAs8q8emUhA0mPE5R0mHAcKvtfjUL0N7BDXSZWnBAUc8KwBiGOJ45nAkatuXyUxntGuqckAtjxr6WdxebGySMvz-ebDmsBw9r1la5qs4PlYsCMxk7T45UZNqFjdXKvu5oVLV-xUO4Y73_BiUYDdaBQ5QgAMiJywq6BsCxSF2zgw2QsKzKT2TGqHfw"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="flex-grow flex flex-col md:flex-row max-w-7xl mx-auto w-full px-4 md:px-8 py-6 gap-6 mb-24">
+<!-- Left Column: Question & Editor -->
+<section class="flex-grow space-y-6 md:max-w-4xl">
+<!-- Question Header/Panel -->
+<div class="bg-surface-container-lowest rounded-xl p-8 shadow-soft">
+<div class="flex flex-wrap items-center gap-3 mb-6">
+<span class="px-3 py-1 bg-primary-fixed text-on-primary-fixed text-[11px] font-bold uppercase tracking-wider rounded-full">Machine Learning</span>
+<span class="px-3 py-1 bg-surface-container text-on-surface-variant text-[11px] font-bold uppercase tracking-wider rounded-full">Module 2</span>
+<span class="px-3 py-1 bg-tertiary-fixed text-on-tertiary-fixed text-[11px] font-bold uppercase tracking-wider rounded-full flex items-center gap-1">
+<span class="material-symbols-outlined text-xs" style="font-variation-settings: 'FILL' 1;">star</span>
+                        10 Marks
+                    </span>
+<span class="px-3 py-1 bg-secondary-fixed text-on-secondary-fixed text-[11px] font-bold uppercase tracking-wider rounded-full">Diagram Expected</span>
+</div>
+<h2 class="text-2xl font-bold tracking-tight text-on-surface mb-4 leading-snug">
+                    Question 1: Explain the K-Means clustering algorithm with an example.
+                </h2>
+<div class="p-4 bg-surface-container-low rounded-lg border-l-4 border-primary/40">
+<p class="text-sm text-on-surface-variant leading-relaxed">
+                        Tip: Start by defining the objective function of K-Means before diving into the algorithmic steps. Use a simple 2D coordinate example for clarity.
+                    </p>
+</div>
+</div>
+<!-- Editor Section -->
+<div class="bg-surface-container-lowest rounded-xl shadow-soft flex flex-col h-[600px] overflow-hidden">
+<!-- Toolbar -->
+<div class="px-6 py-3 bg-surface-container-low flex justify-between items-center">
+<div class="flex gap-4">
+<button class="text-slate-600 hover:text-primary transition-colors"><span class="material-symbols-outlined">format_bold</span></button>
+<button class="text-slate-600 hover:text-primary transition-colors"><span class="material-symbols-outlined">format_italic</span></button>
+<button class="text-slate-600 hover:text-primary transition-colors"><span class="material-symbols-outlined">format_list_bulleted</span></button>
+<button class="text-slate-600 hover:text-primary transition-colors"><span class="material-symbols-outlined">image</span></button>
+<div class="w-px h-5 bg-outline-variant mx-1"></div>
+<button class="text-slate-600 hover:text-primary transition-colors"><span class="material-symbols-outlined">functions</span></button>
+</div>
+<div class="flex items-center gap-4">
+<span class="text-[11px] font-bold text-slate-400 uppercase flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">cloud_done</span>
+                            Autosaved 14:02
+                        </span>
+<span class="text-[11px] font-bold text-slate-500 uppercase tracking-widest">
+                            240 Words
+                        </span>
+</div>
+</div>
+<!-- Text Area -->
+<div class="flex-grow p-8 relative">
+<textarea class="w-full h-full resize-none border-none focus:ring-0 text-lg leading-relaxed text-on-surface p-0 placeholder-slate-300" placeholder="Start writing your answer here...">K-Means Clustering is an unsupervised learning algorithm that aims to partition n observations into k clusters in which each observation belongs to the cluster with the nearest mean (cluster centers or cluster centroid), serving as a prototype of the cluster.
+
+The algorithm works as follows:
+1. Initialization: Choose k initial centroids randomly.
+2. Assignment: Assign each data point to the nearest centroid...
+                    </textarea>
+</div>
+</div>
+</section>
+<!-- Right Column: Sidebar -->
+<aside class="md:w-80 flex flex-col gap-6">
+<!-- Mode Switcher -->
+<div class="bg-surface-container-low p-1.5 rounded-xl flex">
+<button class="flex-1 py-2 text-xs font-bold uppercase tracking-wider rounded-lg bg-surface-container-lowest shadow-sm text-teal-800">Practice Mode</button>
+<button class="flex-1 py-2 text-xs font-bold uppercase tracking-wider rounded-lg text-slate-500 hover:text-slate-800 transition-colors">Exam Mode</button>
+</div>
+<!-- Timer Card -->
+<div class="bg-primary text-on-primary rounded-xl p-6 flex flex-col items-center text-center shadow-lg bg-gradient-to-br from-primary to-primary-container">
+<span class="text-[10px] font-bold uppercase tracking-[0.2em] opacity-80 mb-1">Time Remaining</span>
+<div class="text-4xl font-bold tracking-tighter">15:00</div>
+<div class="w-full h-1.5 bg-on-primary/20 rounded-full mt-4 overflow-hidden">
+<div class="h-full bg-on-primary w-1/2"></div>
+</div>
+</div>
+<!-- Expectations Sticky -->
+<div class="sticky top-24 space-y-6">
+<!-- Examiner Expectations -->
+<div class="bg-surface-container-low rounded-xl p-6 border-l-4 border-secondary/30">
+<h3 class="text-xs font-black uppercase tracking-[0.15em] text-secondary mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">visibility</span>
+                        Examiner Expectations
+                    </h3>
+<ul class="space-y-3">
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary text-lg">check_circle</span>
+<span class="text-sm font-semibold text-on-surface">Logic definition</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary text-lg">check_circle</span>
+<span class="text-sm font-semibold text-on-surface">Step-by-step procedure</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary text-lg">check_circle</span>
+<span class="text-sm font-semibold text-on-surface">Numerical Example</span>
+</li>
+</ul>
+</div>
+<!-- Key Concepts -->
+<div class="bg-surface-container-lowest rounded-xl p-6 shadow-soft">
+<h3 class="text-xs font-black uppercase tracking-[0.15em] text-teal-800 mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">lightbulb</span>
+                        Key Concepts
+                    </h3>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1.5 bg-surface-container text-on-surface text-xs font-bold rounded-lg">Centroids</span>
+<span class="px-3 py-1.5 bg-surface-container text-on-surface text-xs font-bold rounded-lg">Iterations</span>
+<span class="px-3 py-1.5 bg-surface-container text-on-surface text-xs font-bold rounded-lg">Convergence</span>
+<span class="px-3 py-1.5 bg-surface-container text-on-surface text-xs font-bold rounded-lg">Euclidean Distance</span>
+<span class="px-3 py-1.5 bg-surface-container text-on-surface text-xs font-bold rounded-lg">Elbow Method</span>
+</div>
+</div>
+<!-- Reference Component: Study Pulse (Visual Flare) -->
+<div class="relative overflow-hidden rounded-xl p-6 bg-primary-container text-on-primary-container">
+<div class="absolute -right-4 -bottom-4 opacity-10">
+<span class="material-symbols-outlined text-8xl" style="font-variation-settings: 'wght' 700;">biotech</span>
+</div>
+<p class="text-[10px] font-bold uppercase tracking-widest mb-1 opacity-70">Study Pulse</p>
+<h4 class="font-bold text-lg mb-2">Previous Paper Stats</h4>
+<p class="text-xs opacity-90 leading-relaxed mb-4">This specific question has appeared 4 times in the last 5 VTU semester exams.</p>
+<button class="w-full py-2 bg-on-primary-container text-primary-container text-xs font-bold rounded-lg hover:bg-white transition-colors">View Past Papers</button>
+</div>
+</div>
+</aside>
+</main>
+<!-- Floating Action Button -->
+<button class="fixed bottom-8 right-8 md:bottom-12 md:right-12 px-8 py-4 bg-gradient-to-r from-primary to-primary-container text-on-primary rounded-full shadow-2xl flex items-center gap-3 active:scale-95 transition-all z-[60]">
+<span class="material-symbols-outlined">send</span>
+<span class="font-bold tracking-tight uppercase text-sm">Submit Answer</span>
+</button>
+<!-- BottomNavBar - Shared Component (Mobile only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl z-50 flex justify-around items-center px-4 pb-6 pt-3 shadow-[0px_-4px_24px_rgba(20,27,43,0.04)] border-t border-teal-50/20 dark:border-slate-800 rounded-t-2xl">
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-5 py-1 hover:text-teal-600" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-semibold text-[11px] uppercase tracking-wider mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-teal-50 dark:bg-teal-900/30 text-teal-800 dark:text-teal-100 rounded-xl px-5 py-1 scale-90 duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">menu_book</span>
+<span class="font-semibold text-[11px] uppercase tracking-wider mt-1">Practice</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-5 py-1 hover:text-teal-600" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-semibold text-[11px] uppercase tracking-wider mt-1">Insights</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-5 py-1 hover:text-teal-600" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-semibold text-[11px] uppercase tracking-wider mt-1">Profile</span>
+</a>
+</nav>
+</body></html>
