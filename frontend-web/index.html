@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VTU CIE Practice</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <main class="app-shell">
+    <section id="login-panel" class="panel">
+      <h1>VTU CIE Practice</h1>
+      <p>Sign in and start writing exam-style answers.</p>
+      <form id="login-form">
+        <label>Email <input type="email" id="email" value="student@cie.app" required /></label>
+        <label>Password <input type="password" id="password" value="student123" required /></label>
+        <button type="submit">Login</button>
+      </form>
+      <p class="hint">Admin demo: admin@cie.app / admin123</p>
+      <p id="login-msg" class="msg"></p>
+    </section>
+
+    <section id="dashboard" class="panel hidden">
+      <header class="row">
+        <div>
+          <h2 id="welcome-title">Dashboard</h2>
+          <p id="user-role"></p>
+        </div>
+        <button id="logout-btn" class="ghost">Logout</button>
+      </header>
+
+      <div class="grid">
+        <article class="card">
+          <h3>Subjects</h3>
+          <select id="subject-select"></select>
+          <button id="load-questions-btn">Load Questions</button>
+          <ul id="question-list" class="list"></ul>
+        </article>
+
+        <article class="card">
+          <h3>Practice</h3>
+          <p id="selected-question">Choose a question from the left.</p>
+          <textarea id="answer-text" rows="8" placeholder="Write your answer..."></textarea>
+          <div class="row">
+            <button id="start-session-btn">Start Session</button>
+            <button id="submit-answer-btn">Submit Answer</button>
+          </div>
+          <p id="practice-msg" class="msg"></p>
+        </article>
+
+        <article class="card">
+          <h3>Feedback</h3>
+          <p id="score-line">No submission yet.</p>
+          <p id="summary-line"></p>
+          <div id="concepts"></div>
+          <div id="evidence"></div>
+        </article>
+      </div>
+    </section>
+  </main>
+  <script src="./app.js"></script>
+</body>
+</html>

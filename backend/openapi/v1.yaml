@@ -1,0 +1,519 @@
+openapi: 3.0.3
+info:
+  title: VTU CIE App API
+  version: 1.0.0
+  description: >
+    API skeleton for VTU CSE CIE practice using hybrid rubric + retrieval evaluation.
+servers:
+  - url: http://localhost:8000
+paths:
+  /health:
+    get:
+      summary: Health check
+      operationId: health
+      tags: [system]
+      responses:
+        "200":
+          description: Service is healthy
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ok
+                required: [status]
+
+  /auth/login:
+    post:
+      summary: Login
+      operationId: login
+      tags: [auth]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginRequest"
+      responses:
+        "200":
+          description: Login success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthTokens"
+
+  /auth/refresh:
+    post:
+      summary: Refresh access token
+      operationId: refreshToken
+      tags: [auth]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RefreshRequest"
+      responses:
+        "200":
+          description: Token refreshed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthTokens"
+
+  /auth/me:
+    get:
+      summary: Current user profile
+      operationId: me
+      tags: [auth]
+      responses:
+        "200":
+          description: Profile
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserProfile"
+
+  /subjects:
+    get:
+      summary: List subjects
+      operationId: listSubjects
+      tags: [catalog]
+      parameters:
+        - in: query
+          name: semester
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Subject list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Subject"
+
+  /subjects/{subjectId}:
+    get:
+      summary: Get subject
+      operationId: getSubject
+      tags: [catalog]
+      parameters:
+        - in: path
+          name: subjectId
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Subject detail
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Subject"
+
+  /subjects/{subjectId}/questions:
+    get:
+      summary: List questions for subject
+      operationId: listSubjectQuestions
+      tags: [catalog]
+      parameters:
+        - in: path
+          name: subjectId
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: marks
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Questions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Question"
+
+  /subjects/{subjectId}/progress:
+    get:
+      summary: Subject progress
+      operationId: getSubjectProgress
+      tags: [catalog]
+      parameters:
+        - in: path
+          name: subjectId
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Progress snapshot
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProgressSnapshot"
+
+  /practice-sessions:
+    post:
+      summary: Create practice session
+      operationId: createPracticeSession
+      tags: [practice]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreatePracticeSessionRequest"
+      responses:
+        "201":
+          description: Session created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PracticeSession"
+
+  /practice-sessions/{sessionId}:
+    get:
+      summary: Get practice session
+      operationId: getPracticeSession
+      tags: [practice]
+      parameters:
+        - in: path
+          name: sessionId
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Session detail
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PracticeSession"
+
+  /practice-sessions/{sessionId}/submit:
+    post:
+      summary: Submit practice answer
+      operationId: submitPracticeAnswer
+      tags: [practice]
+      parameters:
+        - in: path
+          name: sessionId
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SubmitAnswerRequest"
+      responses:
+        "200":
+          description: Submission accepted and evaluated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AttemptFeedback"
+
+  /attempts/{attemptId}:
+    get:
+      summary: Get evaluated attempt
+      operationId: getAttempt
+      tags: [attempts]
+      parameters:
+        - in: path
+          name: attemptId
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Attempt detail
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AttemptFeedback"
+
+  /attempts/history:
+    get:
+      summary: List attempt history
+      operationId: listAttemptHistory
+      tags: [attempts]
+      responses:
+        "200":
+          description: Attempt history
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AttemptFeedback"
+
+  /admin/subject-packs:
+    post:
+      summary: Create subject pack
+      operationId: createSubjectPack
+      tags: [admin]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateSubjectPackRequest"
+      responses:
+        "201":
+          description: Subject pack created
+
+  /admin/documents/upload:
+    post:
+      summary: Upload source document
+      operationId: uploadDocument
+      tags: [admin]
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                subjectPackId:
+                  type: string
+                documentType:
+                  type: string
+                  enum: [syllabus, notes, question_bank, timetable]
+                file:
+                  type: string
+                  format: binary
+              required: [subjectPackId, documentType, file]
+      responses:
+        "202":
+          description: Upload accepted
+
+  /admin/questions/extract:
+    post:
+      summary: Trigger question extraction
+      operationId: extractQuestions
+      tags: [admin]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                subjectPackId:
+                  type: string
+              required: [subjectPackId]
+      responses:
+        "202":
+          description: Extraction started
+
+  /admin/rubrics/generate:
+    post:
+      summary: Trigger rubric generation
+      operationId: generateRubrics
+      tags: [admin]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                subjectPackId:
+                  type: string
+              required: [subjectPackId]
+      responses:
+        "202":
+          description: Rubric generation started
+
+  /admin/subject-packs/{id}/publish:
+    post:
+      summary: Publish subject pack
+      operationId: publishSubjectPack
+      tags: [admin]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Subject pack published
+
+components:
+  schemas:
+    LoginRequest:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+      required: [email, password]
+
+    RefreshRequest:
+      type: object
+      properties:
+        refreshToken:
+          type: string
+      required: [refreshToken]
+
+    AuthTokens:
+      type: object
+      properties:
+        accessToken:
+          type: string
+        refreshToken:
+          type: string
+      required: [accessToken, refreshToken]
+
+    UserProfile:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+      required: [id, name, email]
+
+    Subject:
+      type: object
+      properties:
+        id:
+          type: string
+        courseCode:
+          type: string
+        title:
+          type: string
+        semester:
+          type: integer
+      required: [id, courseCode, title, semester]
+
+    Question:
+      type: object
+      properties:
+        id:
+          type: string
+        marks:
+          type: integer
+        moduleNo:
+          type: integer
+        year:
+          type: integer
+        text:
+          type: string
+      required: [id, marks, moduleNo, text]
+
+    ProgressSnapshot:
+      type: object
+      properties:
+        subjectId:
+          type: string
+        attemptsCount:
+          type: integer
+        averageNormalizedScore:
+          type: number
+          format: float
+      required: [subjectId, attemptsCount, averageNormalizedScore]
+
+    CreatePracticeSessionRequest:
+      type: object
+      properties:
+        subjectId:
+          type: string
+        questionId:
+          type: string
+      required: [subjectId, questionId]
+
+    PracticeSession:
+      type: object
+      properties:
+        id:
+          type: string
+        subjectId:
+          type: string
+        questionId:
+          type: string
+        status:
+          type: string
+          enum: [created, in_progress, submitted]
+      required: [id, subjectId, questionId, status]
+
+    SubmitAnswerRequest:
+      type: object
+      properties:
+        answerText:
+          type: string
+      required: [answerText]
+
+    AttemptEvidence:
+      type: object
+      properties:
+        sourceTitle:
+          type: string
+        snippet:
+          type: string
+      required: [sourceTitle, snippet]
+
+    AttemptFeedback:
+      type: object
+      properties:
+        attemptId:
+          type: string
+        questionId:
+          type: string
+        scoreRaw:
+          type: number
+          format: float
+        scoreNormalized:
+          type: number
+          format: float
+        missedConcepts:
+          type: array
+          items:
+            type: string
+        conceptCoverage:
+          type: array
+          items:
+            type: string
+        referenceAnswer:
+          type: string
+        diagramSuggestion:
+          type: string
+        evidence:
+          type: array
+          items:
+            $ref: "#/components/schemas/AttemptEvidence"
+      required:
+        - attemptId
+        - questionId
+        - scoreRaw
+        - scoreNormalized
+        - missedConcepts
+        - conceptCoverage
+        - referenceAnswer
+        - diagramSuggestion
+        - evidence
+
+    CreateSubjectPackRequest:
+      type: object
+      properties:
+        subjectId:
+          type: string
+        title:
+          type: string
+      required: [subjectId, title]
+
