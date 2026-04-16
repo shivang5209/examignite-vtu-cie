@@ -3,61 +3,440 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>VTU CIE Practice</title>
+  <title>ExamIgnite Study Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;600;700;800;900&family=Manrope:wght@400;500;600;700;800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="./style.css" />
 </head>
 <body>
-  <main class="app-shell">
-    <section id="login-panel" class="panel">
-      <h1>VTU CIE Practice</h1>
-      <p>Sign in and start writing exam-style answers.</p>
-      <form id="login-form">
-        <label>Email <input type="email" id="email" value="student@cie.app" required /></label>
-        <label>Password <input type="password" id="password" value="student123" required /></label>
-        <button type="submit">Login</button>
-      </form>
-      <p class="hint">Admin demo: admin@cie.app / admin123</p>
-      <p id="login-msg" class="msg"></p>
+  <main class="portal-shell">
+    <section id="login-view" class="login-view">
+      <div class="login-copy">
+        <p class="eyebrow">The Scholarly Curator</p>
+        <h1>Turn daily practice into steady exam confidence.</h1>
+        <p class="lead">
+          A calmer, more premium study workspace for VTU students who want focused answer-writing, grounded feedback, and visible growth.
+        </p>
+        <div class="feature-ribbon">
+          <span class="pill accent">10 mark writing</span>
+          <span class="pill">AI feedback</span>
+          <span class="pill">Weak topic focus</span>
+        </div>
+      </div>
+
+      <section class="login-card">
+        <div class="card-header">
+          <p class="eyebrow">Student Access</p>
+          <h2>Welcome back</h2>
+        </div>
+        <form id="login-form" class="login-form">
+          <label class="field">
+            <span>Email</span>
+            <input type="email" id="email" value="student@cie.app" required />
+          </label>
+          <label class="field">
+            <span>Password</span>
+            <input type="password" id="password" value="student123" required />
+          </label>
+          <button type="submit" class="btn btn-primary">Enter Workspace</button>
+        </form>
+        <p class="hint">Student demo: `student@cie.app / student123`</p>
+        <p class="hint">Admin demo: `admin@cie.app / admin123`</p>
+        <p id="login-msg" class="status-text error-text"></p>
+      </section>
     </section>
 
-    <section id="dashboard" class="panel hidden">
-      <header class="row">
-        <div>
-          <h2 id="welcome-title">Dashboard</h2>
-          <p id="user-role"></p>
+    <section id="app-view" class="app-view hidden">
+      <header class="top-appbar">
+        <div class="top-appbar__left">
+          <button class="icon-btn" type="button" aria-label="Menu">
+            <span class="material-symbols-outlined">menu</span>
+          </button>
+          <span class="brand-mark">ExamIgnite</span>
         </div>
-        <button id="logout-btn" class="ghost">Logout</button>
+
+        <nav class="main-nav">
+          <button class="nav-pill is-active" data-view="home-view">Home</button>
+          <button class="nav-pill" data-view="subject-view">Subject</button>
+          <button class="nav-pill" data-view="practice-view">Practice</button>
+          <button class="nav-pill" data-view="history-view">Insights</button>
+        </nav>
+
+        <div class="top-appbar__right">
+          <label class="compact-select">
+            <span>Semester</span>
+            <select id="semester-filter">
+              <option value="">All</option>
+              <option value="4" selected>Semester 4</option>
+            </select>
+          </label>
+          <div class="profile-chip">
+            <div class="avatar-circle">
+              <span class="material-symbols-outlined">person</span>
+            </div>
+            <div class="profile-copy">
+              <strong id="user-name">Student</strong>
+              <small id="user-role">student</small>
+            </div>
+          </div>
+          <button id="logout-btn" class="btn btn-secondary">Logout</button>
+        </div>
       </header>
 
-      <div class="grid">
-        <article class="card">
-          <h3>Subjects</h3>
-          <select id="subject-select"></select>
-          <button id="load-questions-btn">Load Questions</button>
-          <ul id="question-list" class="list"></ul>
-        </article>
+      <p id="global-msg" class="status-text"></p>
 
-        <article class="card">
-          <h3>Practice</h3>
-          <p id="selected-question">Choose a question from the left.</p>
-          <textarea id="answer-text" rows="8" placeholder="Write your answer..."></textarea>
-          <div class="row">
-            <button id="start-session-btn">Start Session</button>
-            <button id="submit-answer-btn">Submit Answer</button>
+      <section id="home-view" class="view-section">
+        <section class="welcome-band">
+          <div class="welcome-band__copy">
+            <p class="eyebrow">Performance Analytics</p>
+            <h1 id="header-greeting">Good Morning</h1>
+            <p class="muted-copy">A premium VTU study workspace built to keep practice calm, consistent, and measurable.</p>
           </div>
-          <p id="practice-msg" class="msg"></p>
-        </article>
+        </section>
 
-        <article class="card">
-          <h3>Feedback</h3>
-          <p id="score-line">No submission yet.</p>
-          <p id="summary-line"></p>
-          <div id="concepts"></div>
-          <div id="evidence"></div>
-        </article>
-      </div>
+        <section class="dashboard-bento">
+          <article class="hero-panel">
+            <div class="hero-panel__inner">
+              <div class="hero-badge">
+                <span class="material-symbols-outlined filled">bolt</span>
+                <span>Study Pulse</span>
+              </div>
+              <div>
+                <h2 id="hero-title">Loading your study pulse...</h2>
+                <p id="hero-subtitle" class="hero-subtitle"></p>
+              </div>
+              <div class="hero-actions">
+                <button id="hero-practice-btn" class="btn btn-light">Practice next question</button>
+                <button id="hero-history-btn" class="btn btn-ghost">Review history</button>
+              </div>
+            </div>
+            <div class="hero-orb"></div>
+          </article>
+
+          <article class="alert-card">
+            <p class="mini-eyebrow">Weak subject alert</p>
+            <h3 id="insight-weak-topic">No weak topic yet</h3>
+            <p class="muted-copy">Use this panel to spot the area that needs the next focused revision pass.</p>
+            <div class="alert-card__footer">
+              <strong id="insight-average">--</strong>
+              <span class="pill accent-soft">Average score</span>
+            </div>
+          </article>
+
+          <article class="study-prompt-card">
+            <div class="study-prompt-card__head">
+              <div>
+                <p class="mini-eyebrow">Recommended move</p>
+                <h3>Likely exam practice</h3>
+              </div>
+              <span class="material-symbols-outlined icon-bubble">lightbulb</span>
+            </div>
+            <div class="stats-row">
+              <span class="pill">Attempts <strong id="insight-attempts">--</strong></span>
+              <span class="pill">High priority</span>
+            </div>
+          </article>
+        </section>
+
+        <section class="quick-actions">
+          <button class="quick-action">
+            <span class="quick-action__icon teal"><span class="material-symbols-outlined filled">play_circle</span></span>
+            <span>Practice Now</span>
+          </button>
+          <button class="quick-action">
+            <span class="quick-action__icon blue"><span class="material-symbols-outlined filled">quiz</span></span>
+            <span>Mock Test</span>
+          </button>
+          <button class="quick-action">
+            <span class="quick-action__icon red"><span class="material-symbols-outlined filled">history_edu</span></span>
+            <span>Review Mistakes</span>
+          </button>
+          <button class="quick-action">
+            <span class="quick-action__icon amber"><span class="material-symbols-outlined filled">library_books</span></span>
+            <span>Previous Papers</span>
+          </button>
+        </section>
+
+        <section class="content-grid content-grid--home">
+          <article class="surface-card">
+            <div class="section-header">
+              <div>
+                <p class="eyebrow">Core Subjects</p>
+                <h3>Your current semester</h3>
+              </div>
+            </div>
+            <div id="subject-cards" class="subject-grid"></div>
+          </article>
+
+          <aside class="insight-panel">
+            <div class="section-header">
+              <div>
+                <p class="eyebrow">Recent Attempts</p>
+                <h3>Learning insights</h3>
+              </div>
+            </div>
+            <div id="recent-attempts" class="attempt-rail"></div>
+          </aside>
+        </section>
+      </section>
+
+      <section id="subject-view" class="view-section hidden">
+        <section class="hero-header-card">
+          <div>
+            <p id="subject-code" class="eyebrow">Subject</p>
+            <h2 id="subject-title">Choose a subject</h2>
+            <p id="subject-meta" class="muted-copy"></p>
+          </div>
+          <div class="metric-focus-card">
+            <span class="mini-eyebrow">Progress</span>
+            <strong id="subject-progress-score">--</strong>
+            <p id="subject-progress-detail" class="muted-copy"></p>
+          </div>
+        </section>
+
+        <section class="content-grid">
+          <article class="surface-card">
+            <div class="section-header">
+              <div>
+                <p class="eyebrow">Question Browser</p>
+                <h3>Curated prompts</h3>
+              </div>
+            </div>
+            <div class="filter-row">
+              <select id="filter-marks" class="filter-select">
+                <option value="">All marks</option>
+              </select>
+              <select id="filter-module" class="filter-select">
+                <option value="">All modules</option>
+              </select>
+              <select id="filter-year" class="filter-select">
+                <option value="">All years</option>
+              </select>
+              <label class="toggle-chip">
+                <input type="checkbox" id="filter-diagram" />
+                <span>Diagram expected</span>
+              </label>
+            </div>
+            <div id="question-cards" class="question-card-list"></div>
+          </article>
+
+          <aside class="preview-card">
+            <div class="section-header">
+              <div>
+                <p class="eyebrow">Selection</p>
+                <h3>Question preview</h3>
+              </div>
+            </div>
+            <p id="selected-question-preview" class="muted-copy">Pick a question to begin focused writing.</p>
+            <button id="open-practice-btn" class="btn btn-primary">Open writing workspace</button>
+          </aside>
+        </section>
+      </section>
+
+      <section id="practice-view" class="view-section hidden">
+        <section class="content-grid content-grid--practice">
+          <div class="practice-main">
+            <article class="question-panel">
+              <div class="chip-row" id="practice-chips"></div>
+              <p id="practice-subject-code" class="eyebrow">Practice</p>
+              <h2 id="practice-question-title">Select a question from the subject browser.</h2>
+              <div class="tip-box">
+                <p class="muted-copy">Use a definition first, then step-by-step structure, then example or diagram if needed.</p>
+              </div>
+            </article>
+
+            <article class="editor-shell">
+              <div class="editor-toolbar">
+                <div class="toolbar-actions">
+                  <button class="icon-btn" type="button"><span class="material-symbols-outlined">format_bold</span></button>
+                  <button class="icon-btn" type="button"><span class="material-symbols-outlined">format_italic</span></button>
+                  <button class="icon-btn" type="button"><span class="material-symbols-outlined">format_list_bulleted</span></button>
+                  <button class="icon-btn" type="button"><span class="material-symbols-outlined">image</span></button>
+                </div>
+                <div class="editor-meta">
+                  <span id="draft-status">Draft idle</span>
+                  <span>Writing Studio</span>
+                </div>
+              </div>
+              <textarea id="answer-text" class="writing-area" placeholder="Start writing your answer here..."></textarea>
+            </article>
+          </div>
+
+          <aside class="practice-sidebar">
+            <div class="mode-switch">
+              <button class="mode-switch__btn is-active" type="button">Practice Mode</button>
+              <button class="mode-switch__btn" type="button">Exam Mode</button>
+            </div>
+
+            <article class="timer-card">
+              <span class="mini-eyebrow">Current Session</span>
+              <strong id="session-status">Not started</strong>
+              <div class="progress-line"><span></span></div>
+            </article>
+
+            <article class="expectation-card">
+              <div class="section-header compact">
+                <div>
+                  <p class="eyebrow">Examiner Expectations</p>
+                </div>
+              </div>
+              <div id="examiner-panel">
+                <p class="muted-copy">Once a question is selected, this panel will summarize the answer frame and special expectations.</p>
+              </div>
+            </article>
+
+            <article class="study-pulse-mini">
+              <p class="mini-eyebrow">Study Pulse</p>
+              <h4>Previous paper relevance</h4>
+              <p class="muted-copy">Use this space for likely-repeat signal and quick reminder context.</p>
+            </article>
+          </aside>
+        </section>
+
+        <div class="floating-submit-bar">
+          <button id="practice-back-btn" class="btn btn-secondary">Back to questions</button>
+          <button id="start-session-btn" class="btn btn-secondary">Start session</button>
+          <button id="submit-answer-btn" class="btn btn-primary">Submit answer</button>
+        </div>
+      </section>
+
+      <section id="feedback-view" class="view-section hidden">
+        <div class="feedback-hero-grid">
+          <article class="score-spotlight">
+            <span class="mini-eyebrow">Final score</span>
+            <h2 id="feedback-score">No submission yet</h2>
+            <p id="feedback-summary" class="muted-copy"></p>
+          </article>
+
+          <article class="coverage-panel">
+            <div class="section-header compact">
+              <div>
+                <p class="eyebrow">Concept Coverage</p>
+                <h3>What landed</h3>
+              </div>
+            </div>
+            <div id="covered-concepts" class="pill-list"></div>
+            <div id="missed-concepts" class="pill-list pill-list--negative"></div>
+          </article>
+        </div>
+
+        <section class="content-grid">
+          <article class="surface-card">
+            <div class="feedback-summary-card">
+              <div class="feedback-summary-card__icon">
+                <span class="material-symbols-outlined filled">auto_awesome</span>
+              </div>
+              <div>
+                <p class="eyebrow">AI Feedback Summary</p>
+                <p class="reading-copy" id="reference-answer"></p>
+              </div>
+            </div>
+          </article>
+
+          <aside class="feedback-side">
+            <article class="preview-card">
+              <div class="section-header compact">
+                <div>
+                  <p class="eyebrow">Diagram Guidance</p>
+                  <h3>Exam note</h3>
+                </div>
+              </div>
+              <p id="feedback-diagram" class="muted-copy">Diagram recommendation appears here.</p>
+            </article>
+
+            <article class="evidence-panel">
+              <div class="section-header compact">
+                <div>
+                  <p class="eyebrow">Evidence</p>
+                  <h3>Grounding sources</h3>
+                </div>
+              </div>
+              <div id="feedback-evidence" class="evidence-list"></div>
+            </article>
+
+            <div class="feedback-actions">
+              <button id="retry-answer-btn" class="btn btn-primary">Retry answer</button>
+              <button id="feedback-subject-btn" class="btn btn-secondary">Back to subject</button>
+            </div>
+          </aside>
+        </section>
+      </section>
+
+      <section id="history-view" class="view-section hidden">
+        <section class="history-header">
+          <div>
+            <p class="eyebrow">Performance Analytics</p>
+            <h2>Growth metrics.</h2>
+            <p class="muted-copy">Visualizing your study rhythm, weak patterns, and the next revision move.</p>
+          </div>
+        </section>
+
+        <section class="history-bento">
+          <article class="trend-card">
+            <div class="section-header compact">
+              <div>
+                <p class="eyebrow">Score Improvement</p>
+                <h3>Recent momentum</h3>
+              </div>
+            </div>
+            <div class="graph-placeholder">
+              <div class="graph-line"></div>
+            </div>
+          </article>
+
+          <article class="streak-card">
+            <p class="mini-eyebrow">Daily momentum</p>
+            <h3>Study streak</h3>
+            <p class="muted-copy">Your consistency is visible here as part of the visual rhythm, even before richer analytics arrive.</p>
+          </article>
+        </section>
+
+        <section class="content-grid">
+          <article class="surface-card">
+            <div class="section-header">
+              <div>
+                <p class="eyebrow">Attempt Timeline</p>
+                <h3>Your recent work</h3>
+              </div>
+            </div>
+            <div id="history-list" class="history-list"></div>
+          </article>
+
+          <aside class="insight-panel">
+            <div class="section-header">
+              <div>
+                <p class="eyebrow">Progress Lens</p>
+                <h3>Subject improvement</h3>
+              </div>
+            </div>
+            <select id="history-subject-select" class="filter-select"></select>
+            <div id="history-progress-panel" class="progress-panel"></div>
+          </aside>
+        </section>
+      </section>
     </section>
   </main>
+
+  <nav class="bottom-nav">
+    <button class="bottom-nav__item is-active" type="button">
+      <span class="material-symbols-outlined">dashboard</span>
+      <span>Home</span>
+    </button>
+    <button class="bottom-nav__item" type="button">
+      <span class="material-symbols-outlined">menu_book</span>
+      <span>Practice</span>
+    </button>
+    <button class="bottom-nav__item" type="button">
+      <span class="material-symbols-outlined">analytics</span>
+      <span>Insights</span>
+    </button>
+    <button class="bottom-nav__item" type="button">
+      <span class="material-symbols-outlined">person</span>
+      <span>Profile</span>
+    </button>
+  </nav>
+
   <script src="./app.js"></script>
 </body>
 </html>
